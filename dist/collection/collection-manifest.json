@@ -1,0 +1,13 @@
+{
+  "entries": [
+    "components/comment/comment.js",
+    "components/commentable/commentable.js"
+  ],
+  "compiler": {
+    "name": "@stencil/core",
+    "version": "1.8.1",
+    "typescriptVersion": "3.7.2"
+  },
+  "collections": [],
+  "bundles": []
+}
