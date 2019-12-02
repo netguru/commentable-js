@@ -1,4 +1,5 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Prop, h, Watch, State } from '@stencil/core';
+import Tunnel from '../../data/user'
 import ApiBase from "../../api/base";
 
 @Component({
@@ -12,17 +13,28 @@ export class Commentable {
   @Prop() apiUrl: string;
   @Prop() config: any;
 
-  parsedConfig = JSON.parse(this.config);
+  @State() currentUser?: any = {};
 
-  componentWillLoad() {
-    ApiBase.auth(this.apiUrl, this.googleIdToken)
+  // TODO: implement this: parsedConfig = JSON.parse(this.config);
+
+  setCurrentUser = (user: any) => {
+    this.currentUser = user
+  };
+
+  @Watch('googleIdToken')
+  async tokenWatchHandler(nextTokenValue: string) {
+    const user = await ApiBase.auth(this.apiUrl, nextTokenValue);
+    this.setCurrentUser(user);
   }
 
   render() {
-    return <div>
+    const tunnelState = {
+      currentUser: this.currentUser
+    };
+    return <Tunnel.Provider state={tunnelState}>
       <p>Component id: {this.commentableId}</p>
       <p>Component Google ID token: {this.googleIdToken}</p>
       <p>Config: {this.apiUrl}</p>
-    </div>;
+    </Tunnel.Provider>;
   }
 }

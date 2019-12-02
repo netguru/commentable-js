@@ -1,4 +1,4 @@
-import { r as registerInstance, h } from './core-933c991d.js';
+import { r as registerInstance, h } from './core-52e4c7ed.js';
 
 const Comment = class {
     constructor(hostRef) {

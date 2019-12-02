@@ -5,18 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <title>Stencil Component Starter</title>
 
+  <meta name="google-signin-scope" content="profile email">
   <meta name="google-signin-client_id" content="428806401879-jporam34k6tplhelcaje67knm7d6p0r4.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
 
   <script type="module" src="/build/commentable.esm.js"></script>
   <script nomodule src="/build/commentable.js"></script>
 
 </head>
 <body>
-  <div class="g-signin2"></div>
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
 
   <ct-commentable
     commentable-id="TEST_1"
-    google-id-token="id_token"
     api-url="https://ntt6a04szk.execute-api.eu-central-1.amazonaws.com/Prod"
     config='{
       "reactions": [
@@ -32,25 +33,11 @@
     }'
   ></ct-commentable>
   <script>
-    var commentable = document.querySelector('ct-commentable');
-    function onSuccess(googleUser) {
-      console.log(googleUser)
-    }
-    function onFailure(error) {
-      console.log(error)
-    }
-    function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 240,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'dark',
-        'onsuccess': onSuccess,
-        'onfailure': onFailure
-      })
+    const commentable = document.querySelector('ct-commentable');
+    function onSignIn(googleUser) {
+      const idToken = googleUser.getAuthResponse().id_token;
+      commentable.setAttribute('google-id-token', idToken)
     }
   </script>
-  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 </body>
 </html>
