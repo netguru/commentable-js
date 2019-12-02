@@ -1,5 +1,6 @@
 const API_ROUTES = {
-  auth: 'auth'
+  auth: 'auth',
+  commentsList: (id: string) => `/commentable/${id}/comments/list`
 };
 
 const ApiBase = {
@@ -20,6 +21,13 @@ const ApiBase = {
       body: JSON.stringify({
         id_token: googleIdToken
       })
+    })
+  },
+
+  fetchComments(apiUrl: string, commentableId: string, params: any) {
+    return this.fetch(`${apiUrl}/${API_ROUTES.commentsList(commentableId)}`, {
+      method: 'post',
+      body: JSON.stringify(params)
     })
   }
 };

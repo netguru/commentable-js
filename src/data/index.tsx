@@ -1,7 +1,7 @@
 import {createProviderConsumer} from "@stencil/state-tunnel";
 import { h } from "@stencil/core";
 
-interface User {
+interface Index {
   id: string
   auth_token: string
   email: string
@@ -10,7 +10,8 @@ interface User {
 }
 
 export interface State {
-  currentUser: User
+  currentUser: Index
+  comments: any
 }
 
 export default createProviderConsumer<State>(
@@ -21,7 +22,8 @@ export default createProviderConsumer<State>(
       email: null,
       name: null,
       picture_url: null
-    }
+    },
+    comments: []
   },
   (subscribe, child) => (
     <context-consumer subscribe={subscribe} renderer={child} />

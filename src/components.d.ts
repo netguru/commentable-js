@@ -10,7 +10,14 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-  interface CtComment {}
+  interface CtAvatar {
+    'user': any;
+  }
+  interface CtComment {
+    'comment': any;
+    'commentableId': string;
+    'config': any;
+  }
   interface CtCommentable {
     'apiUrl': string;
     'commentableId': string;
@@ -21,6 +28,12 @@ export namespace Components {
 
 declare global {
 
+
+  interface HTMLCtAvatarElement extends Components.CtAvatar, HTMLStencilElement {}
+  var HTMLCtAvatarElement: {
+    prototype: HTMLCtAvatarElement;
+    new (): HTMLCtAvatarElement;
+  };
 
   interface HTMLCtCommentElement extends Components.CtComment, HTMLStencilElement {}
   var HTMLCtCommentElement: {
@@ -34,13 +47,21 @@ declare global {
     new (): HTMLCtCommentableElement;
   };
   interface HTMLElementTagNameMap {
+    'ct-avatar': HTMLCtAvatarElement;
     'ct-comment': HTMLCtCommentElement;
     'ct-commentable': HTMLCtCommentableElement;
   }
 }
 
 declare namespace LocalJSX {
-  interface CtComment {}
+  interface CtAvatar {
+    'user'?: any;
+  }
+  interface CtComment {
+    'comment'?: any;
+    'commentableId'?: string;
+    'config'?: any;
+  }
   interface CtCommentable {
     'apiUrl'?: string;
     'commentableId'?: string;
@@ -49,6 +70,7 @@ declare namespace LocalJSX {
   }
 
   interface IntrinsicElements {
+    'ct-avatar': CtAvatar;
     'ct-comment': CtComment;
     'ct-commentable': CtCommentable;
   }
@@ -60,6 +82,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
+      'ct-avatar': LocalJSX.CtAvatar & JSXBase.HTMLAttributes<HTMLCtAvatarElement>;
       'ct-comment': LocalJSX.CtComment & JSXBase.HTMLAttributes<HTMLCtCommentElement>;
       'ct-commentable': LocalJSX.CtCommentable & JSXBase.HTMLAttributes<HTMLCtCommentableElement>;
     }

@@ -1,0 +1,49 @@
+:host {
+  display: block;
+}
+
+.ct-comment {
+  display: flex;
+  min-height: 5.5rem;
+  padding: 1rem;
+}
+
+.ct-comment__content {
+  margin-left: 1rem;
+}
+
+.ct-comment__content .content-meta {
+  display: flex;
+}
+
+.ct-comment__content .content-meta .name {
+  font-weight: bold;
+  color: #00d664;
+}
+
+.ct-comment__content .content-meta .separator,
+.ct-comment__content .content-meta .date {
+  margin-left: 0.5rem;
+}
+
+.ct-comment__content .content-body {
+  margin-top: 0.75rem;
+  font-size: 1.125rem;
+}
+
+.ct-replies {
+  margin-left: 2.5rem;
+  position: relative;
+}
+
+/* TODO: Implement this stripe */
+/*.ct-replies:before {*/
+/*  content: '';*/
+/*  height: 100%;*/
+/*  width: 1px;*/
+/*  left: -1rem;*/
+/*  top: 0;*/
+/*  display: block;*/
+/*  position: absolute;*/
+/*  border-left: 1px red solid;*/
+/*}*/

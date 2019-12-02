@@ -1,4 +1,4 @@
-import { h, r as registerInstance } from './core-52e4c7ed.js';
+import { h, r as registerInstance } from './core-91da8f92.js';
 
 const createProviderConsumer = (defaultState, consumerRender) => {
     let listeners = new Map();
@@ -65,11 +65,13 @@ const Tunnel = createProviderConsumer({
         email: null,
         name: null,
         picture_url: null
-    }
+    },
+    comments: []
 }, (subscribe, child) => (h("context-consumer", { subscribe: subscribe, renderer: child })));
 
 const API_ROUTES = {
-    auth: 'auth'
+    auth: 'auth',
+    commentsList: (id) => `/commentable/${id}/comments/list`
 };
 const ApiBase = {
     async fetch(endpoint, requestConfig) {
@@ -87,6 +89,12 @@ const ApiBase = {
                 id_token: googleIdToken
             })
         });
+    },
+    fetchComments(apiUrl, commentableId, params) {
+        return this.fetch(`${apiUrl}/${API_ROUTES.commentsList(commentableId)}`, {
+            method: 'post',
+            body: JSON.stringify(params)
+        });
     }
 };
 
@@ -94,25 +102,44 @@ const Commentable = class {
     constructor(hostRef) {
         registerInstance(this, hostRef);
         this.currentUser = {};
+        this.comments = [];
+        this.isLoading = true;
         // TODO: implement this: parsedConfig = JSON.parse(this.config);
         this.setCurrentUser = (user) => {
             this.currentUser = user;
+        };
+        this.setComments = (comments) => {
+            this.comments = comments;
         };
     }
     async tokenWatchHandler(nextTokenValue) {
         const user = await ApiBase.auth(this.apiUrl, nextTokenValue);
         this.setCurrentUser(user);
     }
+    async currentUserWatchHandler() {
+        const requestParams = {};
+        if (this.currentUser) {
+            requestParams.auth_token = this.currentUser.auth_token;
+        }
+        const { comments } = await ApiBase.fetchComments(this.apiUrl, this.commentableId, requestParams);
+        this.setComments(comments);
+        this.isLoading = false;
+    }
     render() {
         const tunnelState = {
-            currentUser: this.currentUser
+            currentUser: this.currentUser,
+            comments: this.comments
         };
-        return h(Tunnel.Provider, { state: tunnelState }, h("p", null, "Component id: ", this.commentableId), h("p", null, "Component Google ID token: ", this.googleIdToken), h("p", null, "Config: ", this.apiUrl));
+        return h(Tunnel.Provider, { state: tunnelState }, this.isLoading ?
+            h("p", null, "Loading")
+            :
+                this.comments.map((comment, _) => (h("ct-comment", { comment: comment }))));
     }
     static get watchers() { return {
-        "googleIdToken": ["tokenWatchHandler"]
+        "googleIdToken": ["tokenWatchHandler"],
+        "currentUser": ["currentUserWatchHandler"]
     }; }
-    static get style() { return ""; }
+    static get style() { return "\@import url(\'https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap\');\n\n:host {\n  display: block;\n  max-width: 48rem;\n  font-family: \'Open Sans\', sans-serif;\n  background-color: #0A1826;\n  color: #f6f6f6;\n}"; }
 };
 
 export { Commentable as ct_commentable };
