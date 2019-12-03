@@ -22,6 +22,7 @@ export namespace Components {
     'comment': any;
     'commentableId': string;
     'config': any;
+    'level': number;
     'nested': boolean;
   }
   interface CtCommentable {
@@ -86,6 +87,7 @@ declare namespace LocalJSX {
     'comment'?: any;
     'commentableId'?: string;
     'config'?: any;
+    'level'?: number;
     'nested'?: boolean;
   }
   interface CtCommentable {

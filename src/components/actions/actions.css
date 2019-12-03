@@ -2,3 +2,25 @@
   display: block;
   margin-top: 1rem;
 }
+
+.ct-actions__controls {
+  margin-top: 1rem;
+}
+
+.ct-actions__controls .action,
+.ct-actions__controls .separator {
+  margin-right: 0.5rem;
+}
+
+.ct-actions__controls .action {
+  cursor: pointer;
+}
+
+.ct-actions__emoji {
+  display: flex;
+  align-items: center;
+}
+
+.ct-actions__emoji ct-button {
+  margin-right: 0.5rem;
+}

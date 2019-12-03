@@ -15,6 +15,7 @@ export class Comment {
   @Prop() config: any;
   @Prop() comment: any;
   @Prop() nested: boolean = false;
+  @Prop() level: number = 0;
 
   @State() areRepliesVisible: boolean = false;
 
@@ -68,17 +69,21 @@ export class Comment {
             <div class="content-body">{this.comment.body}</div>
             <ct-actions />
             {(this.hasReplies && !this.nested) &&
-              <ct-button onClick={() => this.toggleReplies()}>Show replies</ct-button>
+              <ct-button onClick={() => this.toggleReplies()}>
+                {this.areRepliesVisible ? 'Hide replies' : 'Show replies'}
+              </ct-button>
             }
           </div>
         </div>
-        <div class={cn('ct-replies', {
-          'ct-replies--visible': this.nested || this.areRepliesVisible
-        })}>
+        <div class={cn('ct-replies',
+          { 'ct-replies--visible': this.nested || this.areRepliesVisible },
+          { [`level-${this.level}`]: true }
+        )}>
           {this.comment.replies.map((reply, _) => (
             <ct-comment
               comment={reply}
               nested={true}
+              level={this.level + 1}
             />
           ))}
         </div>

@@ -1,4 +1,4 @@
-:host {
+.ct-button {
   display: inline-flex;
   padding: 1rem 1.75rem;
   background-color: #0d2031;
@@ -6,8 +6,13 @@
   color: #00d664;
   font-size: 0.875rem;
   cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
 }
 
-:host.ct-button--small {
-  padding: 0;
+.ct-button--small {
+  padding: 0.375rem 0.5rem;
+  color: #cccccc;
+  min-height: 1.5rem;
 }

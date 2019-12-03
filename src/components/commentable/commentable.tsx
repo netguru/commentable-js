@@ -4,7 +4,7 @@ import ApiBase from "../../api/base";
 
 @Component({
   tag: 'ct-commentable',
-  styleUrls: ['commentable.css'],
+  styleUrls: ['commentable.css', 'loading.css'],
   shadow: true
 })
 export class Commentable {
@@ -48,6 +48,16 @@ export class Commentable {
     this.isLoading = false
   }
 
+  renderLoading() {
+    return <div class="ct-loading">
+      <div class="la-ball-fall">
+        <div />
+        <div />
+        <div />
+      </div>
+    </div>
+  }
+
   render() {
     const tunnelState = {
       currentUser: this.currentUser,
@@ -55,7 +65,7 @@ export class Commentable {
     };
     return <Tunnel.Provider state={tunnelState}>
       {this.isLoading ?
-        <p>Loading</p>
+        this.renderLoading()
       :
         this.comments.map((comment, _) => (
           <ct-comment

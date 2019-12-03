@@ -10,10 +10,10 @@ export class Comment {
   @Prop() small: boolean = false;
 
   render() {
-    return <Host class={cn('ct-button', {
+    return <div class={cn('ct-button', {
       'ct-button--small': this.small
     })}>
       <slot />
-    </Host>
+    </div>
   }
 }
