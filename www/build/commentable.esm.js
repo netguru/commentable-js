@@ -1,1 +1,6 @@
-import{p as e,b as t}from"./p-9f6cb62c.js";e().then(e=>t([["p-kiworwmy",[[0,"context-consumer",{context:[16],renderer:[16],subscribe:[16],unsubscribe:[32]}]]],["p-siwnnmk0",[[1,"ct-commentable",{commentableId:[1,"commentable-id"],googleIdToken:[1,"google-id-token"],apiUrl:[1,"api-url"],config:[8],currentUser:[32],comments:[32],isLoading:[32]}],[1,"ct-comment",{commentableId:[1,"commentable-id"],config:[8],comment:[8],nested:[4],areRepliesVisible:[32]}],[1,"ct-actions"],[1,"ct-avatar",{user:[8],nested:[4]}],[1,"ct-button",{small:[4]}]]]],e));
+import { p as patchBrowser, g as globals, b as bootstrapLazy } from './core-53db4053.js';
+
+patchBrowser().then(options => {
+  globals();
+  return bootstrapLazy([["ct-actions",[[1,"ct-actions"]]],["ct-avatar",[[1,"ct-avatar",{"user":[8],"nested":[4]}]]],["ct-button",[[1,"ct-button",{"small":[4]}]]],["ct-comment",[[1,"ct-comment",{"commentableId":[1,"commentable-id"],"config":[8],"comment":[8],"nested":[4],"level":[2],"areRepliesVisible":[32]}]]],["ct-commentable",[[1,"ct-commentable",{"commentableId":[1,"commentable-id"],"googleIdToken":[1,"google-id-token"],"apiUrl":[1,"api-url"],"config":[8],"currentUser":[32],"comments":[32],"isLoading":[32]}]]],["context-consumer",[[0,"context-consumer",{"context":[16],"renderer":[16],"subscribe":[16],"unsubscribe":[32]}]]]], options);
+});
