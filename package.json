@@ -19,7 +19,8 @@
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
-    "generate": "stencil generate"
+    "generate": "stencil generate",
+    "build:docs": "yarn build && cp -rf www/ docs/"
   },
   "dependencies": {
     "@stencil/state-tunnel": "^1.0.1",
@@ -27,13 +28,7 @@
     "dayjs": "^1.8.17"
   },
   "devDependencies": {
-    "@stencil/core": "^1.3.3",
-    "husky": "^3.1.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "yarn build && cp www/ docs/"
-    }
+    "@stencil/core": "^1.3.3"
   },
   "license": "MIT"
 }

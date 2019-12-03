@@ -26,7 +26,10 @@
 graph TD;
   ct-commentable --> ct-comment
   ct-comment --> ct-avatar
+  ct-comment --> ct-actions
+  ct-comment --> ct-button
   ct-comment --> ct-comment
+  ct-actions --> ct-button
   style ct-commentable fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

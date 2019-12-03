@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type  | Default     |
-| -------- | --------- | ----------- | ----- | ----------- |
-| `user`   | `user`    |             | `any` | `undefined` |
+| Property | Attribute | Description | Type      | Default     |
+| -------- | --------- | ----------- | --------- | ----------- |
+| `nested` | `nested`  |             | `boolean` | `false`     |
+| `user`   | `user`    |             | `any`     | `undefined` |
 
 
 ## Dependencies
