@@ -1,4 +1,4 @@
-import { r as registerInstance, c as getElement } from './core-91da8f92.js';
+import { r as registerInstance, c as getElement } from './core-6b4c2274.js';
 
 const ContextConsumer = class {
     constructor(hostRef) {

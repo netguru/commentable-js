@@ -2,6 +2,10 @@
   display: block;
 }
 
+abbr {
+  text-decoration: none;
+}
+
 .ct-comment {
   display: flex;
   min-height: 5.5rem;
@@ -12,13 +16,25 @@
   margin-left: 1rem;
 }
 
+.ct-comment__content--nested {
+  margin-left: 0.25rem;
+}
+
 .ct-comment__content .content-meta {
   display: flex;
+  font-size: 0.875rem;
 }
 
 .ct-comment__content .content-meta .name {
   font-weight: bold;
   color: #00d664;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ct-comment__content .content-meta .name.name--deleted {
+  color: #FFFFFF;
 }
 
 .ct-comment__content .content-meta .separator,
@@ -28,12 +44,17 @@
 
 .ct-comment__content .content-body {
   margin-top: 0.75rem;
-  font-size: 1.125rem;
+  font-size: 1rem;
 }
 
 .ct-replies {
-  margin-left: 2.5rem;
+  margin-left: 1.75rem;
   position: relative;
+  display: none;
+}
+
+.ct-replies--visible {
+  display: block;
 }
 
 /* TODO: Implement this stripe */

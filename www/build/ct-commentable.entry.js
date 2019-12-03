@@ -1,4 +1,4 @@
-import { h, r as registerInstance } from './core-91da8f92.js';
+import { h, r as registerInstance } from './core-6b4c2274.js';
 
 const createProviderConsumer = (defaultState, consumerRender) => {
     let listeners = new Map();
@@ -122,7 +122,7 @@ const Commentable = class {
             requestParams.auth_token = this.currentUser.auth_token;
         }
         const { comments } = await ApiBase.fetchComments(this.apiUrl, this.commentableId, requestParams);
-        this.setComments(comments);
+        this.setComments(comments.reverse());
         this.isLoading = false;
     }
     render() {

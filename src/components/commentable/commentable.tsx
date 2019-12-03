@@ -44,7 +44,7 @@ export class Commentable {
       this.commentableId,
       requestParams
     );
-    this.setComments(comments);
+    this.setComments(comments.reverse());
     this.isLoading = false
   }
 

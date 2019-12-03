@@ -1,0 +1,13 @@
+:host {
+  display: inline-flex;
+  padding: 1rem 1.75rem;
+  background-color: #0d2031;
+  margin-top: 1rem;
+  color: #00d664;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+:host.ct-button--small {
+  padding: 0;
+}
