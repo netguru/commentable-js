@@ -1,5 +1,6 @@
 import { r as registerInstance, h } from './core-53db4053.js';
-import { A as ApiBase, T as Tunnel } from './base-4836570b.js';
+import { T as Tunnel } from './index-0b212045.js';
+import { A as ApiBase } from './base-58409c6b.js';
 
 const Commentable = class {
     constructor(hostRef) {
@@ -7,7 +8,7 @@ const Commentable = class {
         this.currentUser = {};
         this.comments = [];
         this.isLoading = true;
-        // TODO: implement this: parsedConfig = JSON.parse(this.config);
+        this.parsedConfig = JSON.parse(this.config);
         this.setCurrentUser = (user) => {
             this.currentUser = user;
         };
@@ -36,7 +37,8 @@ const Commentable = class {
         const tunnelState = {
             currentUser: this.currentUser,
             comments: this.comments,
-            setComments: this.setComments
+            setComments: this.setComments,
+            config: this.parsedConfig
         };
         return h(Tunnel.Provider, { state: tunnelState }, this.isLoading ?
             this.renderLoading()

@@ -46,7 +46,6 @@ export class Comment {
   }
 
   render() {
-    console.log(this.comment);
     return (
       <Host>
         <div class="ct-comment">
@@ -67,7 +66,9 @@ export class Comment {
               </div>
             </div>
             <div class="content-body">{this.comment.body}</div>
-            <ct-actions />
+            <ct-actions
+              comment={this.comment}
+            />
             {(this.hasReplies && !this.nested) &&
               <ct-button onClick={() => this.toggleReplies()}>
                 {this.areRepliesVisible ? 'Hide replies' : 'Show replies'}

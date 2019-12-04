@@ -1,4 +1,5 @@
-import {Component, h, Host} from "@stencil/core";
+import {Component, h, Host, Prop} from "@stencil/core";
+import Tunnel from '../../data';
 
 @Component({
   tag: 'ct-actions',
@@ -6,19 +7,33 @@ import {Component, h, Host} from "@stencil/core";
   shadow: true
 })
 export class Comment {
+  @Prop() comment: any;
+
+  mapReactions(config) {
+    return config.reactions.map((reaction, _) => {
+      const numberOfReactions =
+        this.comment.reactions && this.comment.reactions[reaction.type];
+      if (numberOfReactions) {
+        return <ct-button small={true}>{reaction.code} {numberOfReactions}</ct-button>
+      }
+    })
+  }
+
   render() {
-    return <Host>
-      <div class="ct-actions__emoji">
-        <ct-button small={true}>👋 9</ct-button>
-        <ct-button small={true}>😱 99+</ct-button>
-        <ct-button small={true}>💪 15</ct-button>
-        <ct-button small={true}>+ Emoji</ct-button>
-      </div>
-      <div class="ct-actions__controls">
-        <a class="action">Reply</a>
-        <span class="separator">·</span>
-        <a class="action">Share</a>
-      </div>
-    </Host>
+    return <Tunnel.Consumer>
+      {({ config }) => (
+        <Host>
+          <div class="ct-actions__emoji">
+            {this.mapReactions(config)}
+            <ct-button small={true}>+ Emoji</ct-button>
+          </div>
+          <div class="ct-actions__controls">
+            <a class="action">Reply</a>
+            <span class="separator">·</span>
+            <a class="action">Share</a>
+          </div>
+        </Host>
+      )}
+    </Tunnel.Consumer>
   }
 }

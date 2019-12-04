@@ -10,7 +10,9 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-  interface CtActions {}
+  interface CtActions {
+    'comment': any;
+  }
   interface CtAvatar {
     'nested': boolean;
     'user': any;
@@ -86,7 +88,9 @@ declare global {
 }
 
 declare namespace LocalJSX {
-  interface CtActions {}
+  interface CtActions {
+    'comment'?: any;
+  }
   interface CtAvatar {
     'nested'?: boolean;
     'user'?: any;

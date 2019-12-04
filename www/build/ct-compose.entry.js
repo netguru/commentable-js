@@ -1,5 +1,6 @@
 import { r as registerInstance, h } from './core-53db4053.js';
-import { A as ApiBase, T as Tunnel } from './base-4836570b.js';
+import { T as Tunnel } from './index-0b212045.js';
+import { A as ApiBase } from './base-58409c6b.js';
 
 const Comment = class {
     constructor(hostRef) {

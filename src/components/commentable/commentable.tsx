@@ -17,7 +17,7 @@ export class Commentable {
   @State() comments?: any = [];
   @State() isLoading: boolean = true;
 
-  // TODO: implement this: parsedConfig = JSON.parse(this.config);
+  parsedConfig = JSON.parse(this.config);
 
   setCurrentUser = (user: any) => {
     this.currentUser = user
@@ -63,7 +63,8 @@ export class Commentable {
     const tunnelState = {
       currentUser: this.currentUser,
       comments: this.comments,
-      setComments: this.setComments
+      setComments: this.setComments,
+      config: this.parsedConfig
     };
     return <Tunnel.Provider state={tunnelState}>
       {this.isLoading ?
