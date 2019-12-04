@@ -1,102 +1,5 @@
-import { h, r as registerInstance } from './core-53db4053.js';
-
-const createProviderConsumer = (defaultState, consumerRender) => {
-    let listeners = new Map();
-    let currentState = defaultState;
-    const updateListener = (fields, instance) => {
-        if (Array.isArray(fields)) {
-            [...fields].forEach(fieldName => {
-                instance[fieldName] = currentState[fieldName];
-            });
-        }
-        else {
-            instance[fields] = Object.assign({}, currentState);
-        }
-    };
-    const subscribe = (instance, propList) => {
-        if (!listeners.has(instance)) {
-            listeners.set(instance, propList);
-            updateListener(propList, instance);
-        }
-        return () => {
-            if (listeners.has(instance)) {
-                listeners.delete(instance);
-            }
-        };
-    };
-    const Provider = ({ state }, children) => {
-        currentState = state;
-        listeners.forEach(updateListener);
-        return children;
-    };
-    const Consumer = (props, children) => {
-        // The casting on subscribe is to allow for crossover through the stencil compiler
-        // In the future we should allow for generics in components.
-        return consumerRender(subscribe, children[0]);
-    };
-    const injectProps = (Cstr, fieldList) => {
-        const CstrPrototype = Cstr.prototype;
-        const cstrConnectedCallback = CstrPrototype.connectedCallback;
-        const cstrDisconnectedCallback = CstrPrototype.disconnectedCallback;
-        CstrPrototype.connectedCallback = function () {
-            subscribe(this, fieldList);
-            if (cstrConnectedCallback) {
-                return cstrConnectedCallback.call(this);
-            }
-        };
-        CstrPrototype.disconnectedCallback = function () {
-            listeners.delete(this);
-            if (cstrDisconnectedCallback) {
-                cstrDisconnectedCallback.call(this);
-            }
-        };
-    };
-    return {
-        Provider,
-        Consumer,
-        injectProps
-    };
-};
-
-const Tunnel = createProviderConsumer({
-    currentUser: {
-        id: null,
-        auth_token: null,
-        email: null,
-        name: null,
-        picture_url: null
-    },
-    comments: []
-}, (subscribe, child) => (h("context-consumer", { subscribe: subscribe, renderer: child })));
-
-const API_ROUTES = {
-    auth: 'auth',
-    commentsList: (id) => `/commentable/${id}/comments/list`
-};
-const ApiBase = {
-    async fetch(endpoint, requestConfig) {
-        const response = await fetch(endpoint, Object.assign(Object.assign({}, requestConfig), { headers: {
-                'Content-Type': 'application/json'
-            } }));
-        return response.json();
-    },
-    auth(apiUrl, googleIdToken) {
-        if (!googleIdToken)
-            return;
-        return this.fetch(`${apiUrl}/${API_ROUTES.auth}`, {
-            method: 'post',
-            body: JSON.stringify({
-                id_token: googleIdToken
-            })
-        });
-    },
-    fetchComments(apiUrl, commentableId, params) {
-        return this.fetch(`${apiUrl}/${API_ROUTES.commentsList(commentableId)}`, {
-            method: 'post',
-            body: JSON.stringify(params)
-        });
-    }
-};
+import { r as registerInstance, h } from './core-53db4053.js';
+import { A as ApiBase, T as Tunnel } from './base-4836570b.js';
 
 const Commentable = class {
     constructor(hostRef) {
@@ -113,6 +16,7 @@ const Commentable = class {
         };
     }
     async tokenWatchHandler(nextTokenValue) {
+        this.isLoading = true;
         const user = await ApiBase.auth(this.apiUrl, nextTokenValue);
         this.setCurrentUser(user);
     }
@@ -131,12 +35,13 @@ const Commentable = class {
     render() {
         const tunnelState = {
             currentUser: this.currentUser,
-            comments: this.comments
+            comments: this.comments,
+            setComments: this.setComments
         };
         return h(Tunnel.Provider, { state: tunnelState }, this.isLoading ?
             this.renderLoading()
             :
-                this.comments.map((comment, _) => (h("ct-comment", { comment: comment }))));
+                h("div", { class: "ct-commentable" }, h("ct-compose", { apiUrl: this.apiUrl, commentableId: this.commentableId }), this.comments.map((comment, _) => (h("ct-comment", { comment: comment })))));
     }
     static get watchers() { return {
         "googleIdToken": ["tokenWatchHandler"],

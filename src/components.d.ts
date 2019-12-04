@@ -31,6 +31,10 @@ export namespace Components {
     'config': any;
     'googleIdToken': string;
   }
+  interface CtCompose {
+    'apiUrl': string;
+    'commentableId': string;
+  }
 }
 
 declare global {
@@ -65,12 +69,19 @@ declare global {
     prototype: HTMLCtCommentableElement;
     new (): HTMLCtCommentableElement;
   };
+
+  interface HTMLCtComposeElement extends Components.CtCompose, HTMLStencilElement {}
+  var HTMLCtComposeElement: {
+    prototype: HTMLCtComposeElement;
+    new (): HTMLCtComposeElement;
+  };
   interface HTMLElementTagNameMap {
     'ct-actions': HTMLCtActionsElement;
     'ct-avatar': HTMLCtAvatarElement;
     'ct-button': HTMLCtButtonElement;
     'ct-comment': HTMLCtCommentElement;
     'ct-commentable': HTMLCtCommentableElement;
+    'ct-compose': HTMLCtComposeElement;
   }
 }
 
@@ -96,6 +107,10 @@ declare namespace LocalJSX {
     'config'?: any;
     'googleIdToken'?: string;
   }
+  interface CtCompose {
+    'apiUrl'?: string;
+    'commentableId'?: string;
+  }
 
   interface IntrinsicElements {
     'ct-actions': CtActions;
@@ -103,6 +118,7 @@ declare namespace LocalJSX {
     'ct-button': CtButton;
     'ct-comment': CtComment;
     'ct-commentable': CtCommentable;
+    'ct-compose': CtCompose;
   }
 }
 
@@ -117,6 +133,7 @@ declare module "@stencil/core" {
       'ct-button': LocalJSX.CtButton & JSXBase.HTMLAttributes<HTMLCtButtonElement>;
       'ct-comment': LocalJSX.CtComment & JSXBase.HTMLAttributes<HTMLCtCommentElement>;
       'ct-commentable': LocalJSX.CtCommentable & JSXBase.HTMLAttributes<HTMLCtCommentableElement>;
+      'ct-compose': LocalJSX.CtCompose & JSXBase.HTMLAttributes<HTMLCtComposeElement>;
     }
   }
 }

@@ -1,0 +1,50 @@
+.ct-compose {
+  display: flex;
+  margin: 2rem 1rem;
+}
+
+.ct-compose__textarea {
+  display: block;
+  margin-left: 1rem;
+  max-width: 22rem;
+  width: 100%;
+  background: #0d2031;
+  border-radius: 0.25rem;
+}
+
+.ct-compose__textarea .inner-textarea {
+  display: block;
+  width: 100%;
+  min-height: 1rem;
+  font-size: 0.875rem;
+  padding: 1rem;
+  background-color: transparent;
+  border: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  border-radius: 0.25rem;
+  resize: none;
+}
+
+.ct-compose__textarea .inner-textarea:focus {
+  outline: none;
+}
+
+.ct-compose__textarea .inner-textarea::placeholder {
+  color: #FFFFFF;
+}
+
+.ct-compose__textarea .compose-controls {
+  display: flex;
+  padding: 0 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.compose-controls p {
+  font-size: 0.875rem;
+}
+
+.control-send {
+  cursor: pointer;
+}

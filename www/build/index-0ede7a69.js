@@ -71,4 +71,4 @@ var classnames = createCommonjsModule(function (module) {
 }());
 });
 
-export { createCommonjsModule as a, commonjsGlobal as b, classnames as c };
+export { commonjsGlobal as a, classnames as b, createCommonjsModule as c };

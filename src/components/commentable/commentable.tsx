@@ -29,6 +29,7 @@ export class Commentable {
 
   @Watch('googleIdToken')
   async tokenWatchHandler(nextTokenValue: string) {
+    this.isLoading = true;
     const user = await ApiBase.auth(this.apiUrl, nextTokenValue);
     this.setCurrentUser(user);
   }
@@ -61,17 +62,24 @@ export class Commentable {
   render() {
     const tunnelState = {
       currentUser: this.currentUser,
-      comments: this.comments
+      comments: this.comments,
+      setComments: this.setComments
     };
     return <Tunnel.Provider state={tunnelState}>
       {this.isLoading ?
         this.renderLoading()
       :
-        this.comments.map((comment, _) => (
-          <ct-comment
-            comment={comment}
+        <div class="ct-commentable">
+          <ct-compose
+            apiUrl={this.apiUrl}
+            commentableId={this.commentableId}
           />
-        ))
+          {this.comments.map((comment, _) => (
+            <ct-comment
+              comment={comment}
+            />
+          ))}
+        </div>
       }
     </Tunnel.Provider>;
   }

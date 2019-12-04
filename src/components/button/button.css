@@ -9,6 +9,7 @@
   align-items: center;
   justify-content: center;
   user-select: none;
+  border-radius: 0.25rem;
 }
 
 .ct-button--small {

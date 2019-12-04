@@ -1,6 +1,7 @@
 const API_ROUTES = {
   auth: 'auth',
-  commentsList: (id: string) => `/commentable/${id}/comments/list`
+  commentsList: (id: string) => `commentable/${id}/comments/list`,
+  commentsAdd: (id: string) => `commentable/${id}/comments/add`
 };
 
 const ApiBase = {
@@ -28,6 +29,16 @@ const ApiBase = {
     return this.fetch(`${apiUrl}/${API_ROUTES.commentsList(commentableId)}`, {
       method: 'post',
       body: JSON.stringify(params)
+    })
+  },
+
+  addComment(apiUrl: string, commentableId: string, { authToken, message }) {
+    return this.fetch(`${apiUrl}/${API_ROUTES.commentsAdd(commentableId)}`, {
+      method: 'post',
+      body: JSON.stringify({
+        auth_token: authToken,
+        body: message
+      })
     })
   }
 };
