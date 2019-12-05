@@ -7,12 +7,11 @@
 
 ## Properties
 
-| Property        | Attribute        | Description | Type      | Default     |
-| --------------- | ---------------- | ----------- | --------- | ----------- |
-| `comment`       | `comment`        |             | `any`     | `undefined` |
-| `commentableId` | `commentable-id` |             | `string`  | `undefined` |
-| `config`        | `config`         |             | `any`     | `undefined` |
-| `nested`        | `nested`         |             | `boolean` | `false`     |
+| Property  | Attribute | Description | Type      | Default     |
+| --------- | --------- | ----------- | --------- | ----------- |
+| `comment` | `comment` |             | `any`     | `undefined` |
+| `level`   | `level`   |             | `number`  | `0`         |
+| `nested`  | `nested`  |             | `boolean` | `false`     |
 
 
 ## Dependencies
@@ -34,6 +33,8 @@
 graph TD;
   ct-comment --> ct-comment
   ct-actions --> ct-button
+  ct-actions --> ct-compose
+  ct-compose --> ct-avatar
   ct-commentable --> ct-comment
   style ct-comment fill:#f9f,stroke:#333,stroke-width:4px
 ```

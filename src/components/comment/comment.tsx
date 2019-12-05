@@ -1,4 +1,4 @@
-import {Component, h, Prop, Host, State, getAssetPath} from '@stencil/core';
+import {Component, h, Prop, Host, State} from '@stencil/core';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime'
 import cn from 'classnames';
