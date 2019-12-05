@@ -1,6 +1,6 @@
-import { r as registerInstance, h } from './core-53db4053.js';
-import { T as Tunnel } from './index-0b212045.js';
-import { A as ApiBase } from './base-58409c6b.js';
+import { r as registerInstance, h } from './core-7fdcb187.js';
+import { T as Tunnel } from './index-d9664074.js';
+import { A as ApiBase } from './base-a02438c4.js';
 
 const Commentable = class {
     constructor(hostRef) {
@@ -9,13 +9,15 @@ const Commentable = class {
         this.comments = [];
         this.isLoading = true;
         this.parsedConfig = JSON.parse(this.config);
-        this.setCurrentUser = (user) => {
-            this.currentUser = user;
-        };
-        this.setComments = (comments) => {
-            this.comments = comments;
-        };
     }
+    setCurrentUser(user) {
+        this.currentUser = user;
+    }
+    ;
+    setComments(comments) {
+        this.comments = comments;
+    }
+    ;
     async tokenWatchHandler(nextTokenValue) {
         this.isLoading = true;
         const user = await ApiBase.auth(this.apiUrl, nextTokenValue);
@@ -35,10 +37,13 @@ const Commentable = class {
     }
     render() {
         const tunnelState = {
+            apiUrl: this.apiUrl,
+            commentableId: this.commentableId,
             currentUser: this.currentUser,
             comments: this.comments,
             setComments: this.setComments,
-            config: this.parsedConfig
+            config: this.parsedConfig,
+            primaryColor: this.primaryColor
         };
         return h(Tunnel.Provider, { state: tunnelState }, this.isLoading ?
             this.renderLoading()

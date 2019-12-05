@@ -1,4 +1,5 @@
-import { r as registerInstance, h, H as Host } from './core-53db4053.js';
+import { r as registerInstance, h, H as Host } from './core-7fdcb187.js';
+import { T as Tunnel } from './index-d9664074.js';
 import { c as createCommonjsModule, a as commonjsGlobal, b as cn } from './index-0ede7a69.js';
 
 var dayjs_min = createCommonjsModule(function (module, exports) {
@@ -8,6 +9,10 @@ var dayjs_min = createCommonjsModule(function (module, exports) {
 var relativeTime = createCommonjsModule(function (module, exports) {
 !function(r,t){"object"=='object'&&"undefined"!='object'?module.exports=t():"function"==typeof undefined&&undefined.amd?undefined(t):r.dayjs_plugin_relativeTime=t();}(commonjsGlobal,function(){"use strict";return function(r,t,e){var n=t.prototype;e.en.relativeTime={future:"in %s",past:"%s ago",s:"a few seconds",m:"a minute",mm:"%d minutes",h:"an hour",hh:"%d hours",d:"a day",dd:"%d days",M:"a month",MM:"%d months",y:"a year",yy:"%d years"};var o=function(r,t,n,o){for(var d,i,u=n.$locale().relativeTime,a=[{l:"s",r:44,d:"second"},{l:"m",r:89},{l:"mm",r:44,d:"minute"},{l:"h",r:89},{l:"hh",r:21,d:"hour"},{l:"d",r:35},{l:"dd",r:25,d:"day"},{l:"M",r:45},{l:"MM",r:10,d:"month"},{l:"y",r:17},{l:"yy",d:"year"}],f=a.length,s=0;s<f;s+=1){var l=a[s];l.d&&(d=o?e(r).diff(n,l.d,!0):n.diff(r,l.d,!0));var h=Math.round(Math.abs(d));if(h<=l.r||!l.r){1===h&&s>0&&(l=a[s-1]),i=u[l.l].replace("%d",h);break}}return t?i:(d>0?u.future:u.past).replace("%s",i)};n.to=function(r,t){return o(r,t,this,!0)},n.from=function(r,t){return o(r,t,this)};var d=function(r){return r.$u?e.utc():e()};n.toNow=function(r){return this.to(d(this),r)},n.fromNow=function(r){return this.from(d(this),r)};}});
 });
+
+const getPrimaryColor = (primaryColor) => {
+    return primaryColor || '#00d664';
+};
 
 dayjs_min.extend(relativeTime);
 const Comment = class {
@@ -38,14 +43,17 @@ const Comment = class {
         return this.getDate().toString();
     }
     render() {
-        return (h(Host, null, h("div", { class: "ct-comment" }, h("ct-avatar", { user: this.comment.user, nested: this.nested }), h("div", { class: cn('ct-comment__content', {
+        return h(Tunnel.Consumer, null, ({ primaryColor }) => (h(Host, null, h("div", { class: "ct-comment" }, h("div", { class: "ct-comment__dot-menu" }), h("ct-avatar", { user: this.comment.user, nested: this.nested }), h("div", { class: cn('ct-comment__content', {
                 'ct-comment__content--nested': this.nested
-            }) }, h("div", { class: "content-meta" }, h("div", { class: cn('name', {
+            }) }, h("div", { class: "content-meta" }, h("div", { style: {
+                color: getPrimaryColor(primaryColor)
+            }, class: cn('name', {
                 'name--deleted': this.isDeleted
             }) }, this.getUserName()), h("div", { class: "separator" }, "\u00B7"), h("div", { class: "date" }, h("abbr", { title: this.getFullDate() }, this.getCreatedFromNowDate()))), h("div", { class: "content-body" }, this.comment.body), h("ct-actions", { comment: this.comment }), (this.hasReplies && !this.nested) &&
-            h("ct-button", { onClick: () => this.toggleReplies() }, this.areRepliesVisible ? 'Hide replies' : 'Show replies'))), h("div", { class: cn('ct-replies', { 'ct-replies--visible': this.nested || this.areRepliesVisible }, { [`level-${this.level}`]: true }) }, this.comment.replies.map((reply, _) => (h("ct-comment", { comment: reply, nested: true, level: this.level + 1 }))))));
+            h("ct-button", { onClick: () => this.toggleReplies() }, this.areRepliesVisible ? 'Hide replies' : 'Show replies'))), h("div", { class: cn('ct-replies', { 'ct-replies--visible': this.nested || this.areRepliesVisible }, { [`level-${this.level}`]: true }) }, this.comment.replies.map((reply, _) => (h("ct-comment", { comment: reply, nested: true, level: this.level + 1 })))))));
     }
-    static get style() { return ":host {\n  display: block;\n}\n\nabbr {\n  text-decoration: none;\n}\n\n.level-0,\n.level-1 {\n  margin-left: 2rem;\n}\n\n.ct-comment {\n  display: -ms-flexbox;\n  display: flex;\n  min-height: 5.5rem;\n  padding: 1rem;\n}\n\n.ct-comment__content {\n  margin-left: 1rem;\n}\n\n.ct-comment__content--nested {\n  margin-left: 0.25rem;\n}\n\n.ct-comment__content .content-meta {\n  display: -ms-flexbox;\n  display: flex;\n  font-size: 0.875rem;\n}\n\n.ct-comment__content .content-meta .name {\n  font-weight: bold;\n  color: #00d664;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n.ct-comment__content .content-meta .name.name--deleted {\n  color: #FFFFFF;\n}\n\n.ct-comment__content .content-meta .separator,\n.ct-comment__content .content-meta .date {\n  margin-left: 0.5rem;\n}\n\n.ct-comment__content .content-body {\n  margin-top: 0.75rem;\n  font-size: 1rem;\n}\n\n.ct-replies {\n  position: relative;\n  display: none;\n}\n\n.ct-replies--visible {\n  display: block;\n}\n\n/* TODO: Implement this stripe */\n/*.ct-replies:before {*/\n/*  content: \'\';*/\n/*  height: 100%;*/\n/*  width: 1px;*/\n/*  left: -1rem;*/\n/*  top: 0;*/\n/*  display: block;*/\n/*  position: absolute;*/\n/*  border-left: 1px red solid;*/\n/*}*/"; }
+    static get assetsDirs() { return ["assets"]; }
+    static get style() { return ":host {\n  display: block;\n}\n\nabbr {\n  text-decoration: none;\n}\n\n.level-0,\n.level-1 {\n  margin-left: 2rem;\n}\n\n.ct-comment {\n  display: -ms-flexbox;\n  display: flex;\n  min-height: 5.5rem;\n  padding: 1rem;\n}\n\n.ct-comment__content {\n  margin-left: 1rem;\n}\n\n.ct-comment__content--nested {\n  margin-left: 0.25rem;\n}\n\n.ct-comment__content .content-meta {\n  display: -ms-flexbox;\n  display: flex;\n  font-size: 0.875rem;\n}\n\n.ct-comment__content .content-meta .name {\n  font-weight: bold;\n  color: #00d664;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n.ct-comment__content .content-meta .name.name--deleted {\n  color: #FFFFFF !important;\n}\n\n.ct-comment__content .content-meta .separator,\n.ct-comment__content .content-meta .date {\n  margin-left: 0.5rem;\n}\n\n.ct-comment__content .content-body {\n  margin-top: 0.75rem;\n  font-size: 1rem;\n}\n\n.ct-replies {\n  position: relative;\n  display: none;\n}\n\n.ct-replies--visible {\n  display: block;\n}\n\n/* TODO: Implement this stripe */\n/*.ct-replies:before {*/\n/*  content: \'\';*/\n/*  height: 100%;*/\n/*  width: 1px;*/\n/*  left: -1rem;*/\n/*  top: 0;*/\n/*  display: block;*/\n/*  position: absolute;*/\n/*  border-left: 1px red solid;*/\n/*}*/"; }
 };
 
 export { Comment as ct_comment };

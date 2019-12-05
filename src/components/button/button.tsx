@@ -1,4 +1,4 @@
-import {Component, h, Prop, Host} from "@stencil/core";
+import {Component, h, Prop} from "@stencil/core";
 import cn from 'classnames';
 
 @Component({
@@ -8,12 +8,18 @@ import cn from 'classnames';
 })
 export class Comment {
   @Prop() small: boolean = false;
+  @Prop() active: boolean = false;
 
   render() {
-    return <div class={cn('ct-button', {
-      'ct-button--small': this.small
-    })}>
-      <slot />
-    </div>
+    return (
+      <div
+        class={cn('ct-button', {
+          'ct-button--small': this.small,
+          'ct-button--active': this.active
+        })}
+      >
+        <slot />
+      </div>
+    )
   }
 }

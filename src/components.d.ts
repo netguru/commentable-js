@@ -18,12 +18,11 @@ export namespace Components {
     'user': any;
   }
   interface CtButton {
+    'active': boolean;
     'small': boolean;
   }
   interface CtComment {
     'comment': any;
-    'commentableId': string;
-    'config': any;
     'level': number;
     'nested': boolean;
   }
@@ -32,9 +31,11 @@ export namespace Components {
     'commentableId': string;
     'config': any;
     'googleIdToken': string;
+    'primaryColor': string;
   }
   interface CtCompose {
     'apiUrl': string;
+    'comment': any;
     'commentableId': string;
   }
 }
@@ -96,12 +97,11 @@ declare namespace LocalJSX {
     'user'?: any;
   }
   interface CtButton {
+    'active'?: boolean;
     'small'?: boolean;
   }
   interface CtComment {
     'comment'?: any;
-    'commentableId'?: string;
-    'config'?: any;
     'level'?: number;
     'nested'?: boolean;
   }
@@ -110,9 +110,11 @@ declare namespace LocalJSX {
     'commentableId'?: string;
     'config'?: any;
     'googleIdToken'?: string;
+    'primaryColor'?: string;
   }
   interface CtCompose {
     'apiUrl'?: string;
+    'comment'?: any;
     'commentableId'?: string;
   }
 

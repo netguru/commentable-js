@@ -12,6 +12,7 @@ export class Commentable {
   @Prop() googleIdToken: string;
   @Prop() apiUrl: string;
   @Prop() config: any;
+  @Prop() primaryColor: string;
 
   @State() currentUser?: any = {};
   @State() comments?: any = [];
@@ -19,11 +20,11 @@ export class Commentable {
 
   parsedConfig = JSON.parse(this.config);
 
-  setCurrentUser = (user: any) => {
+  setCurrentUser(user: any) {
     this.currentUser = user
   };
 
-  setComments = (comments: any) => {
+  setComments(comments: any) {
     this.comments = comments
   };
 
@@ -61,10 +62,13 @@ export class Commentable {
 
   render() {
     const tunnelState = {
+      apiUrl: this.apiUrl,
+      commentableId: this.commentableId,
       currentUser: this.currentUser,
       comments: this.comments,
       setComments: this.setComments,
-      config: this.parsedConfig
+      config: this.parsedConfig,
+      primaryColor: this.primaryColor
     };
     return <Tunnel.Provider state={tunnelState}>
       {this.isLoading ?

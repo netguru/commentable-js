@@ -1,4 +1,4 @@
-import { h } from './core-53db4053.js';
+import { h } from './core-7fdcb187.js';
 
 const createProviderConsumer = (defaultState, consumerRender) => {
     let listeners = new Map();
@@ -59,6 +59,7 @@ const createProviderConsumer = (defaultState, consumerRender) => {
 };
 
 const Tunnel = createProviderConsumer({
+    apiUrl: null,
     currentUser: {
         id: null,
         auth_token: null,

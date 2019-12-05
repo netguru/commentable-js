@@ -10,6 +10,7 @@
 .ct-actions__controls .action,
 .ct-actions__controls .separator {
   margin-right: 0.5rem;
+  user-select: none;
 }
 
 .ct-actions__controls .action {
@@ -21,6 +22,7 @@
   align-items: center;
 }
 
-.ct-actions__emoji ct-button {
+.ct-actions__emoji ct-button,
+.reactions-panel ct-button {
   margin-right: 0.5rem;
 }

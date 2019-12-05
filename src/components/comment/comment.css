@@ -39,7 +39,7 @@ abbr {
 }
 
 .ct-comment__content .content-meta .name.name--deleted {
-  color: #FFFFFF;
+  color: #FFFFFF !important;
 }
 
 .ct-comment__content .content-meta .separator,

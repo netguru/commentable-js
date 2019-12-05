@@ -17,3 +17,8 @@
   color: #cccccc;
   min-height: 1.5rem;
 }
+
+.ct-button--active {
+  background-color: #0e2f41;
+  border: 1px #133c54 solid;
+}

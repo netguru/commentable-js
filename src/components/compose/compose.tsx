@@ -10,6 +10,7 @@ import ApiBase from '../../api/base';
 export class Comment {
   @Prop() apiUrl: string;
   @Prop() commentableId: string;
+  @Prop() comment: any;
 
   @State() isExpanded: boolean = false;
   @State() message: string = '';
@@ -22,18 +23,27 @@ export class Comment {
     this.isExpanded = true
   }
 
-  async addComment(user, setComments, comments) {
+  addReply(reply) {
+    this.comment.replies = [reply, ...this.comment.replies]
+  }
+
+  async addComment(apiUrl, commentableId, user, setComments, comments, repliesToCommentId) {
     if (this.message.length < 1) return;
-    const newComment = await ApiBase.addComment(this.apiUrl, this.commentableId, {
+    const newComment = await ApiBase.addComment(apiUrl, commentableId, {
       message: this.message,
-      authToken: user.auth_token
+      authToken: user.auth_token,
+      repliesTo: repliesToCommentId
     });
-    setComments([newComment, ...comments])
+    if (this.comment) {
+      this.addReply(newComment)
+    } else {
+      setComments([newComment, ...comments])
+    }
   }
 
   render() {
     return <Tunnel.Consumer>
-      {({ currentUser, comments, setComments }) => (
+      {({ apiUrl, commentableId, currentUser, comments, setComments }) => (
         <div class="ct-compose">
           <ct-avatar
             user={currentUser}
@@ -52,9 +62,12 @@ export class Comment {
                 <a
                   class="control-send"
                   onClick={() => this.addComment(
+                    apiUrl,
+                    commentableId,
                     currentUser,
                     setComments,
-                    comments
+                    comments,
+                    this.comment.id
                   )}
                 >➡</a>
               </div>

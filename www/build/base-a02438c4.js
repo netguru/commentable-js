@@ -1,7 +1,9 @@
 const API_ROUTES = {
     auth: 'auth',
     commentsList: (id) => `commentable/${id}/comments/list`,
-    commentsAdd: (id) => `commentable/${id}/comments/add`
+    commentsAdd: (id) => `commentable/${id}/comments/add`,
+    reactionsAdd: (id) => `commentable/${id}/reactions/add`,
+    reactionsDelete: (id) => `commentable/${id}/reactions/delete`
 };
 const ApiBase = {
     async fetch(endpoint, requestConfig) {
@@ -26,12 +28,33 @@ const ApiBase = {
             body: JSON.stringify(params)
         });
     },
-    addComment(apiUrl, commentableId, { authToken, message }) {
+    addComment(apiUrl, commentableId, { authToken, message, repliesTo }) {
         return this.fetch(`${apiUrl}/${API_ROUTES.commentsAdd(commentableId)}`, {
             method: 'post',
             body: JSON.stringify({
                 auth_token: authToken,
-                body: message
+                body: message,
+                replies_to: repliesTo
+            })
+        });
+    },
+    addReaction(apiUrl, commentableId, { authToken, reactionType, commentId }) {
+        return this.fetch(`${apiUrl}/${API_ROUTES.reactionsAdd(commentableId)}`, {
+            method: 'post',
+            body: JSON.stringify({
+                auth_token: authToken,
+                reaction_type: reactionType,
+                comment_id: commentId
+            })
+        });
+    },
+    deleteReaction(apiUrl, commentableId, { authToken, reactionType, commentId }) {
+        return this.fetch(`${apiUrl}/${API_ROUTES.reactionsDelete(commentableId)}`, {
+            method: 'post',
+            body: JSON.stringify({
+                auth_token: authToken,
+                reaction_type: reactionType,
+                comment_id: commentId
             })
         });
     }

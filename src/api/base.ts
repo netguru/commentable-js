@@ -1,7 +1,9 @@
 const API_ROUTES = {
   auth: 'auth',
   commentsList: (id: string) => `commentable/${id}/comments/list`,
-  commentsAdd: (id: string) => `commentable/${id}/comments/add`
+  commentsAdd: (id: string) => `commentable/${id}/comments/add`,
+  reactionsAdd: (id: string) => `commentable/${id}/reactions/add`,
+  reactionsDelete: (id: string) => `commentable/${id}/reactions/delete`
 };
 
 const ApiBase = {
@@ -32,12 +34,51 @@ const ApiBase = {
     })
   },
 
-  addComment(apiUrl: string, commentableId: string, { authToken, message }) {
+  addComment(apiUrl: string, commentableId: string, { authToken, message, repliesTo }) {
     return this.fetch(`${apiUrl}/${API_ROUTES.commentsAdd(commentableId)}`, {
       method: 'post',
       body: JSON.stringify({
         auth_token: authToken,
-        body: message
+        body: message,
+        replies_to: repliesTo
+      })
+    })
+  },
+
+  addReaction(
+    apiUrl: string,
+    commentableId: string,
+    {
+      authToken,
+      reactionType,
+      commentId
+    }
+  ) {
+    return this.fetch(`${apiUrl}/${API_ROUTES.reactionsAdd(commentableId)}`, {
+      method: 'post',
+      body: JSON.stringify({
+        auth_token: authToken,
+        reaction_type: reactionType,
+        comment_id: commentId
+      })
+    })
+  },
+
+  deleteReaction(
+    apiUrl: string,
+    commentableId,
+    {
+      authToken,
+      reactionType,
+      commentId
+    }
+  ) {
+    return this.fetch(`${apiUrl}/${API_ROUTES.reactionsDelete(commentableId)}`, {
+      method: 'post',
+      body: JSON.stringify({
+        auth_token: authToken,
+        reaction_type: reactionType,
+        comment_id: commentId
       })
     })
   }
