@@ -7,10 +7,10 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type      | Default     |
-| -------- | --------- | ----------- | --------- | ----------- |
-| `nested` | `nested`  |             | `boolean` | `false`     |
-| `user`   | `user`    |             | `any`     | `undefined` |
+| Property  | Attribute  | Description | Type      | Default     |
+| --------- | ---------- | ----------- | --------- | ----------- |
+| `isSmall` | `is-small` |             | `boolean` | `false`     |
+| `user`    | `user`     |             | `any`     | `undefined` |
 
 
 ## Dependencies

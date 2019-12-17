@@ -7,11 +7,9 @@
 
 ## Properties
 
-| Property        | Attribute        | Description | Type     | Default     |
-| --------------- | ---------------- | ----------- | -------- | ----------- |
-| `apiUrl`        | `api-url`        |             | `string` | `undefined` |
-| `comment`       | `comment`        |             | `any`    | `undefined` |
-| `commentableId` | `commentable-id` |             | `string` | `undefined` |
+| Property  | Attribute | Description | Type  | Default     |
+| --------- | --------- | ----------- | ----- | ----------- |
+| `comment` | `comment` |             | `any` | `undefined` |
 
 
 ## Dependencies
@@ -24,11 +22,13 @@
 ### Depends on
 
 - [ct-avatar](../avatar)
+- [ct-loading](../loading)
 
 ### Graph
 ```mermaid
 graph TD;
   ct-compose --> ct-avatar
+  ct-compose --> ct-loading
   ct-actions --> ct-compose
   ct-commentable --> ct-compose
   style ct-compose fill:#f9f,stroke:#333,stroke-width:4px

@@ -1,4 +1,4 @@
-import {createProviderConsumer} from "@stencil/state-tunnel";
+import { createProviderConsumer } from "@stencil/state-tunnel";
 import { h } from "@stencil/core";
 
 interface User {
@@ -11,20 +11,14 @@ interface User {
 
 export interface State {
   apiUrl: string,
-  currentUser: User
+  currentUser?: User
   comments: any
 }
 
 export default createProviderConsumer<State>(
   {
     apiUrl: null,
-    currentUser: {
-      id: null,
-      auth_token: null,
-      email: null,
-      name: null,
-      picture_url: null
-    },
+    currentUser: null,
     comments: []
   },
   (subscribe, child) => (

@@ -1,74 +1,95 @@
-:host {
-  display: block;
+.commentable-comment {
+  display: flex;
+  margin-top: 8px;
 }
 
-abbr {
+.commentable-comment__content {
+  display: flex;
+  flex-direction: column;
+  margin-left: 16px;
+  width: 100%;
+  max-width: calc(100% - 48px);
+}
+
+.commentable-comment__info {
+  display: flex;
+  font-size: 13px;
+  color: #b2c4d4;
+  margin-bottom: 2px;
+
+}
+
+.commentable-comment__user {
+  color: #00d563;
+  text-overflow: ellipsis;
+  font-weight: bold;
+  margin-right: 8px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.commentable-comment__date {
+  margin-left: 8px;
+  margin-right: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.commentable-comment__date abbr {
   text-decoration: none;
 }
 
-.level-0,
-.level-1 {
-  margin-left: 2rem;
+.commentable-comment__body {
+  font-size: 14px;
+  white-space: pre-line;
+  line-height: 1.5;
+  color: #fff;
 }
 
-.ct-comment {
+.commentable-comment__menu {
+  margin-right: 0;
+  margin-left: auto;
+  cursor: pointer;
   display: flex;
-  min-height: 5.5rem;
-  padding: 1rem;
+  justify-content: center;
+  width: 7px;
 }
 
-.ct-comment__content {
-  margin-left: 1rem;
+.commentable-comment__menu img {
+  width: 5px;
+  height: 16px;
 }
 
-.ct-comment__content--nested {
-  margin-left: 0.25rem;
-}
-
-.ct-comment__content .content-meta {
+.commentable-comment__show-replies {
+  background-color: #0d2031;
+  border: none;
+  padding: 0;
   display: flex;
-  font-size: 0.875rem;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: #00cc60;
+  width: 130px;
+  height: 40px;
+  cursor: pointer;
+  margin-bottom: 18px;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
-.ct-comment__content .content-meta .name {
-  font-weight: bold;
-  color: #00d664;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.commentable-comment__show-replies:focus {
+  outline: none;
 }
 
-.ct-comment__content .content-meta .name.name--deleted {
-  color: #FFFFFF !important;
-}
-
-.ct-comment__content .content-meta .separator,
-.ct-comment__content .content-meta .date {
-  margin-left: 0.5rem;
-}
-
-.ct-comment__content .content-body {
-  margin-top: 0.75rem;
-  font-size: 1rem;
-}
-
-.ct-replies {
-  position: relative;
+.commentable-comment__replies {
   display: none;
 }
 
-.ct-replies--visible {
-  display: block;
+.commentable-comment__replies--visible {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+  margin-left: 4px;
+  padding-left: 24px;
+  border-left: 1px solid rgba(0, 213, 99, 0.25)
 }
-
-/* TODO: Implement this stripe */
-/*.ct-replies:before {*/
-/*  content: '';*/
-/*  height: 100%;*/
-/*  width: 1px;*/
-/*  left: -1rem;*/
-/*  top: 0;*/
-/*  display: block;*/
-/*  position: absolute;*/
-/*  border-left: 1px red solid;*/
-/*}*/

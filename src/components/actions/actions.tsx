@@ -1,33 +1,29 @@
-import {Component, h, Host, Prop, State} from "@stencil/core";
+import { Component, h, Prop, State } from "@stencil/core";
+import cn from 'classnames';
 import Tunnel from '../../data';
 import ApiBase from '../../api/base';
 
 @Component({
   tag: 'ct-actions',
   styleUrl: 'actions.css',
-  shadow: true
 })
 export class Comment {
   @Prop() comment: any;
   @State() reactionsExpanded: boolean = false;
   @State() replyComposeVisible: boolean = false;
 
-  toggleReactionsPanel() {
-    this.reactionsExpanded = !this.reactionsExpanded;
-  }
+  toggleReactionsPanel = () => this.reactionsExpanded = !this.reactionsExpanded;
+  isOwnReaction = reactionType => this.comment.user_reactions.includes(reactionType);
+  toggleReply = () => this.replyComposeVisible = !this.replyComposeVisible;
 
-  isOwnReaction(reactionType) {
-    return this.comment.user_reactions.includes(reactionType)
-  }
-
-  mapReactions(config, toggleReactionParams) {
-    return config.reactions.map((reaction, _) => {
-      const numberOfReactions =
-        this.comment.reactions && this.comment.reactions[reaction.type];
-      if (numberOfReactions) {
-        return <ct-button
-          small={true}
-          active={this.isOwnReaction(reaction.type)}
+  renderReactions = (reactions, toggleReactionParams) => {
+    return reactions.map((reaction) => {
+      const numberOfReactions = this.comment.reactions[reaction.type];
+      return numberOfReactions > 0 && (
+        <button
+          class={cn("commentable-actions__reaction", {
+            'commentable-actions__reaction--selected': this.isOwnReaction(reaction.type),
+          })}
           onClick={() => this.toggleReaction(
             toggleReactionParams.apiUrl,
             toggleReactionParams.commentableId,
@@ -39,20 +35,32 @@ export class Comment {
           )}
         >
           {reaction.code} {numberOfReactions}
-        </ct-button>
-      }
+        </button>
+      )
     })
   }
 
-  addReaction(reactionType) {
-    this.comment.reactions[reactionType] = (this.comment.reactions[reactionType] || 0) + 1;
-    this.comment.user_reactions.push(reactionType)
+  addReaction = (reactionType) => {
+    this.comment = {
+      ...this.comment,
+      reactions: {
+        ...this.comment.reactions,
+        [reactionType]: (this.comment.reactions[reactionType] || 0) + 1,
+      },
+      user_reactions: [...this.comment.user_reactions, reactionType],
+    }
   }
 
-  removeReaction(reactionType) {
-    this.comment.reactions[reactionType] -= 1;
-    const userReactions = this.comment.user_reactions;
-    this.comment.user_reactions = userReactions.filter(reaction => reaction !== reactionType)
+  removeReaction = (reactionType) => {
+    const newUserReactions = this.comment.user_reactions.filter(reaction => reaction !== reactionType);
+    this.comment = {
+      ...this.comment,
+      reactions: {
+        ...this.comment.reactions,
+        [reactionType]: this.comment.reactions[reactionType] - 1,
+      },
+      user_reactions: newUserReactions,
+    };
   }
 
   async toggleReaction(apiUrl, commentableId, { authToken, reactionType, commentId }) {
@@ -61,7 +69,7 @@ export class Comment {
         await ApiBase.deleteReaction(apiUrl, commentableId, {
           authToken,
           reactionType,
-          commentId
+          commentId,
         });
       } catch {}
       this.removeReaction(reactionType);
@@ -69,65 +77,60 @@ export class Comment {
       await ApiBase.addReaction(apiUrl, commentableId, {
         authToken,
         reactionType,
-        commentId
+        commentId,
       });
       this.addReaction(reactionType);
-      this.toggleReactionsPanel()
+      this.reactionsExpanded = false;
     }
-  }
-
-  toggleReply() {
-    this.replyComposeVisible = !this.replyComposeVisible
   }
 
   render() {
     return <Tunnel.Consumer>
       {({ apiUrl, commentableId, config, currentUser }) => (
-        <Host>
-          {console.log(this.comment)}
-          <div class="ct-actions__emoji">
-            {this.mapReactions(config, {
+        <div class="commentable-actions">
+          <div class="commentable-actions__reactions">
+            {this.renderReactions(config.reactions, {
               apiUrl,
               commentableId,
               authToken: currentUser.auth_token
             })}
-            <ct-button
-              small={true}
-              onClick={() => this.toggleReactionsPanel()}
-            >
-              + Emoji
-            </ct-button>
-          </div>
-          {this.reactionsExpanded && <div class="reactions-panel">
-            {config.reactions.map((reaction, _) => (
-              <ct-button
-                small={true}
-                onClick={() => this.toggleReaction(apiUrl, commentableId, {
-                  authToken: currentUser.auth_token,
-                  reactionType: reaction.type,
-                  commentId: this.comment.id
-                })}
+            {config.reactions.filter(r => !this.comment.user_reactions.includes(r.type)).length > 0 && (
+              <button
+                class="commentable-actions__add-reaction"
+                onClick={this.toggleReactionsPanel}
               >
-                {reaction.code}
-              </ct-button>
-            ))}
-          </div>}
-          <div class="ct-actions__controls">
-            <a
-              class="action"
-              onClick={() => this.toggleReply()}
-            >
-              Reply
-            </a>
-            <span class="separator">·</span>
-            <a class="action">Share</a>
+                + Reaction
+              </button>
+            )}
           </div>
-          {this.replyComposeVisible && <div class="ct-actions__reply-compose">
-            <ct-compose
-              comment={this.comment}
-            />
-          </div>}
-        </Host>
+          {this.reactionsExpanded && (
+            <div class="commentable-actions__reactions-panel">
+              {config.reactions
+                  .filter(r => !this.comment.user_reactions.includes(r.type))
+                  .map(reaction => (
+                    <button
+                      class="commentable-actions__reaction-select"
+                      onClick={() => this.toggleReaction(apiUrl, commentableId, {
+                        authToken: currentUser.auth_token,
+                        reactionType: reaction.type,
+                        commentId: this.comment.id
+                      })}
+                    >
+                      {reaction.code}
+                    </button>
+                  )
+              )}
+            </div>
+          )}
+          <a class="commentable-actions__reply" onClick={this.toggleReply}>
+            Reply
+          </a>
+          {this.replyComposeVisible && (
+            <div class="commentable-actions__compose-reply">
+              <ct-compose comment={this.comment} />
+            </div>
+            )}
+        </div>
       )}
     </Tunnel.Consumer>
   }

@@ -1,50 +1,70 @@
-.ct-compose {
+.commentable__compose {
   display: flex;
-  margin: 2rem 1rem;
+  flex-direction: column;
+  margin-bottom: 32px;
 }
 
-.ct-compose__textarea {
-  display: block;
-  margin-left: 1rem;
-  max-width: 22rem;
-  width: 100%;
-  background: #0d2031;
-  border-radius: 0.25rem;
+.commentable__compose-ui {
+  display: flex;
 }
 
-.ct-compose__textarea .inner-textarea {
-  display: block;
-  width: 100%;
-  min-height: 1rem;
-  font-size: 0.875rem;
-  padding: 1rem;
-  background-color: transparent;
-  border: none;
+.commentable__compose-form {
+  display: flex;
+  flex-direction: column;
+  background-color: #0d2031;
+  color: #b2c4d4;
+  margin-left: 16px;
   box-sizing: border-box;
-  color: #FFFFFF;
-  border-radius: 0.25rem;
-  resize: none;
+  border-radius: 4px;
+  width: 100%;
 }
 
-.ct-compose__textarea .inner-textarea:focus {
+.commentable__compose-form textarea {
+  min-height: 48px;
+  height: 100%;
+  border: none;
+  padding: 18px 16px;
+  box-sizing: border-box;
+  background-color: transparent;
+  color: #fff;
+  resize: none;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 13px;
+}
+
+.commentable__compose-form textarea::placeholder {
+  color: #b2c4d4;
+}
+
+.commentable__compose-form textarea:focus {
   outline: none;
 }
 
-.ct-compose__textarea .inner-textarea::placeholder {
-  color: #FFFFFF;
+.commentable__compose-form.commentable__compose-form--expanded {
+  background-color: #052840;
+  padding-bottom: 8px;
 }
 
-.ct-compose__textarea .compose-controls {
+.commentable__compose-controls {
   display: flex;
-  padding: 0 1rem;
-  align-items: center;
-  justify-content: space-between;
 }
 
-.compose-controls p {
-  font-size: 0.875rem;
-}
-
-.control-send {
+.commentable__compose-send {
+  border: none;
+  background: none;
+  padding: 0;
   cursor: pointer;
+  margin: 0 16px 0 auto;
+  height: 26px;
+  color: #b2c4d4;
+  display: flex;
+  align-items: center;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 13px;
+}
+
+.commentable__compose-send img {
+  width: 20px;
+  height: 19px;
+  margin-left: 4px;
 }

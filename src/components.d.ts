@@ -14,30 +14,23 @@ export namespace Components {
     'comment': any;
   }
   interface CtAvatar {
-    'nested': boolean;
+    'isSmall': boolean;
     'user': any;
-  }
-  interface CtButton {
-    'active': boolean;
-    'small': boolean;
   }
   interface CtComment {
     'comment': any;
     'level': number;
-    'nested': boolean;
   }
   interface CtCommentable {
     'apiUrl': string;
     'commentableId': string;
     'config': any;
     'googleIdToken': string;
-    'primaryColor': string;
   }
   interface CtCompose {
-    'apiUrl': string;
     'comment': any;
-    'commentableId': string;
   }
+  interface CtLoading {}
 }
 
 declare global {
@@ -53,12 +46,6 @@ declare global {
   var HTMLCtAvatarElement: {
     prototype: HTMLCtAvatarElement;
     new (): HTMLCtAvatarElement;
-  };
-
-  interface HTMLCtButtonElement extends Components.CtButton, HTMLStencilElement {}
-  var HTMLCtButtonElement: {
-    prototype: HTMLCtButtonElement;
-    new (): HTMLCtButtonElement;
   };
 
   interface HTMLCtCommentElement extends Components.CtComment, HTMLStencilElement {}
@@ -78,13 +65,19 @@ declare global {
     prototype: HTMLCtComposeElement;
     new (): HTMLCtComposeElement;
   };
+
+  interface HTMLCtLoadingElement extends Components.CtLoading, HTMLStencilElement {}
+  var HTMLCtLoadingElement: {
+    prototype: HTMLCtLoadingElement;
+    new (): HTMLCtLoadingElement;
+  };
   interface HTMLElementTagNameMap {
     'ct-actions': HTMLCtActionsElement;
     'ct-avatar': HTMLCtAvatarElement;
-    'ct-button': HTMLCtButtonElement;
     'ct-comment': HTMLCtCommentElement;
     'ct-commentable': HTMLCtCommentableElement;
     'ct-compose': HTMLCtComposeElement;
+    'ct-loading': HTMLCtLoadingElement;
   }
 }
 
@@ -93,38 +86,31 @@ declare namespace LocalJSX {
     'comment'?: any;
   }
   interface CtAvatar {
-    'nested'?: boolean;
+    'isSmall'?: boolean;
     'user'?: any;
-  }
-  interface CtButton {
-    'active'?: boolean;
-    'small'?: boolean;
   }
   interface CtComment {
     'comment'?: any;
     'level'?: number;
-    'nested'?: boolean;
   }
   interface CtCommentable {
     'apiUrl'?: string;
     'commentableId'?: string;
     'config'?: any;
     'googleIdToken'?: string;
-    'primaryColor'?: string;
   }
   interface CtCompose {
-    'apiUrl'?: string;
     'comment'?: any;
-    'commentableId'?: string;
   }
+  interface CtLoading {}
 
   interface IntrinsicElements {
     'ct-actions': CtActions;
     'ct-avatar': CtAvatar;
-    'ct-button': CtButton;
     'ct-comment': CtComment;
     'ct-commentable': CtCommentable;
     'ct-compose': CtCompose;
+    'ct-loading': CtLoading;
   }
 }
 
@@ -136,10 +122,10 @@ declare module "@stencil/core" {
     interface IntrinsicElements {
       'ct-actions': LocalJSX.CtActions & JSXBase.HTMLAttributes<HTMLCtActionsElement>;
       'ct-avatar': LocalJSX.CtAvatar & JSXBase.HTMLAttributes<HTMLCtAvatarElement>;
-      'ct-button': LocalJSX.CtButton & JSXBase.HTMLAttributes<HTMLCtButtonElement>;
       'ct-comment': LocalJSX.CtComment & JSXBase.HTMLAttributes<HTMLCtCommentElement>;
       'ct-commentable': LocalJSX.CtCommentable & JSXBase.HTMLAttributes<HTMLCtCommentableElement>;
       'ct-compose': LocalJSX.CtCompose & JSXBase.HTMLAttributes<HTMLCtComposeElement>;
+      'ct-loading': LocalJSX.CtLoading & JSXBase.HTMLAttributes<HTMLCtLoadingElement>;
     }
   }
 }

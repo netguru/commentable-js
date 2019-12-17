@@ -1,25 +1,27 @@
-import {Component, getAssetPath, h, Prop} from "@stencil/core";
+import { Component, h, Prop } from "@stencil/core";
 import cn from 'classnames';
 
 @Component({
   tag: 'ct-avatar',
   styleUrl: 'avatar.css',
-  shadow: true,
-  assetsDirs: ['assets']
 })
 export class Comment {
   @Prop() user: any;
-  @Prop() nested: boolean = false;
+  @Prop() isSmall: boolean = false;
 
   render() {
-    return <div class={cn('ct-comment__avatar', {
-      'ct-comment__avatar--nested': this.nested
+    return <div class={cn('commentable-avatar', {
+      'commentable-avatar--small': this.isSmall
     })}>
-      {this.user ?
-        <img src={this.user.picture_url} alt={`${this.user.name}'s Avatar`} />
-        :
-        <img src={getAssetPath('./assets/fallback.jpg')} alt="No avatar" />
-      }
+      {this.user ? (
+        this.user.picture_url ? (
+          <img src={this.user.picture_url} alt={`${this.user.name}'s Avatar`} />
+        ) : (
+          <img src="data:image/jpeg;base64,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" alt="No avatar" />
+        )
+      ) : (
+        <img class="commentable-avatar--deleted" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAyCAYAAAAayliMAAAAAXNSR0IArs4c6QAAAsxJREFUaAXtWc1u00AQnnFLE0EPbU/8PwdFHBDcELlhH6hqlFTqI/AKSDxCpSQiEAp2D0hB4YrUSnBA6iMg8Re4BCTaqg3gYdYuIY52Hf/EIUZeKYozM983f/Gudw2Q8YFJ4q83bN0Bx0rCoYFmlE3djsuhxQVOC252HIEgoF0xDSMKV61hWQSkR8HIbDPfgTwBWVsnKct8B9xpVNxQcapGAOcBaJlJ3gPg62gcdInxFxj3ivEfomE9azFxuLNQ0tnAC4Q4mDiDlhkfe/imUbGoxGaaIHBw8fQlkGRFnGD8UG087bvL/E2c+QR8f6HaQ7vc780UXxA5/eh8CbCi1tdk5MJNABHqGYk3DzOvwLgr4D4LqUibzeeLvRMHhVMAXcMweiq7NOTtdrvwZW9vce7HyaOVlZtfVT4C14Ej56DpHFLnew+vqwjSkne6+9eEbxFDkI/ABIKA06LLE/jXnfCtxFGDqTe2SgTOBgG21kx9fRjPG6WOkPHG48ywrtqwNxCohKCtl81brWF92N+JEuDdWJE3Q6d5KluQORQ6mVzIOPgFD0tFlU0YeX4PhKlSmjZ5B9KsbhjuvANhqpSmTd6BNKsbhjvvQJgqpWmTdyDN6obhznwHkj2NInzmF3wvgHBXVi1E1ikH7vJ51LwzQ+4jt9JshCJRAuVVfZv5xUc6KqvGDamChRVTv8df4pNoZP4v9L8nQO9Ef5HgYqI+xwD/9enFoKIY0QHtjQckk4hG2KpcRJd7vsj0kH9ikPMEBjVfoCeA+JYJL9cfbW3WNp/FfJEndy6TCh/Cl/ApfLsxyAyPZYFHi8Km+ti6gj+hxRvw4407dhmUyjEjv62c44OCJeGXp+dvNAultdvGjvitGiMTEMAHlnXu1yHcJ6SrQHBWRTYWOcInJHw5U4S7dwzj4yjOUAkMkliWtbTvVmpQOp5rPkTu8SFyNwrbb+NCxTb38qSxAAAAAElFTkSuQmCC" alt="No avatar" />
+      )}
     </div>
   }
 }
