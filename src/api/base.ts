@@ -2,6 +2,7 @@ const API_ROUTES = {
   auth: 'auth',
   commentsList: (id: string) => `commentable/${id}/comments/list`,
   commentsAdd: (id: string) => `commentable/${id}/comments/add`,
+  commentsDelete: (id: string) => `commentable/${id}/comments/delete`,
   reactionsAdd: (id: string) => `commentable/${id}/reactions/add`,
   reactionsDelete: (id: string) => `commentable/${id}/reactions/delete`
 };
@@ -41,6 +42,16 @@ const ApiBase = {
         auth_token: authToken,
         body: message,
         replies_to: repliesTo
+      })
+    })
+  },
+
+  deleteComment(apiUrl: string, commentableId: string, commentId: string, { authToken }) {
+    return this.fetch(`${apiUrl}/${API_ROUTES.commentsDelete(commentableId)}`, {
+      method: 'post',
+      body: JSON.stringify({
+        auth_token: authToken,
+        comment_id: commentId,
       })
     })
   },

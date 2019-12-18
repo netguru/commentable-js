@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property  | Attribute | Description | Type  | Default     |
-| --------- | --------- | ----------- | ----- | ----------- |
-| `comment` | `comment` |             | `any` | `undefined` |
+| Property   | Attribute   | Description | Type  | Default     |
+| ---------- | ----------- | ----------- | ----- | ----------- |
+| `comment`  | `comment`   |             | `any` | `undefined` |
+| `onSubmit` | `on-submit` |             | `any` | `undefined` |
 
 
 ## Dependencies

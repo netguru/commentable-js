@@ -127,7 +127,7 @@ export class Comment {
           </a>
           {this.replyComposeVisible && (
             <div class="commentable-actions__compose-reply">
-              <ct-compose comment={this.comment} />
+              <ct-compose comment={this.comment} onSubmit={this.toggleReply} />
             </div>
             )}
         </div>

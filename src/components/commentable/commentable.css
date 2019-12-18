@@ -7,9 +7,10 @@
   background-color: #091726;
   color: #f6f6f6;
   box-sizing: border-box;
-  padding: 40px 23px 40px 16px;
+  padding: 40px 6px 40px 16px;
 }
 
 .commentable .commentable__comments {
   overflow-y: scroll;
+  padding-right: 24px;
 }

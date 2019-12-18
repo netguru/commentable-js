@@ -14,9 +14,14 @@
   background-color: #0d2031;
   color: #b2c4d4;
   margin-left: 16px;
+  margin-right: 24px;
   box-sizing: border-box;
   border-radius: 4px;
   width: 100%;
+}
+
+.commentable-actions__compose-reply .commentable__compose-form {
+  margin-right: 0;
 }
 
 .commentable__compose-form textarea {

@@ -9,6 +9,7 @@ import ApiBase from '../../api/base';
 })
 export class Comment {
   @Prop() comment: any;
+  @Prop() onSubmit: any;
 
   @State() isExpanded: boolean = false;
   @State() isLoading: boolean = false;
@@ -42,6 +43,7 @@ export class Comment {
     this.isLoading = false;
     this.message = '';
     this.updateFormUI();
+    if (this.onSubmit) this.onSubmit();
     if (this.comment) {
       this.comment.replies = [...this.comment.replies, newComment];
       setComments(comments);

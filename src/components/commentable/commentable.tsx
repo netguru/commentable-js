@@ -78,7 +78,7 @@ export class Commentable {
           {!this.isLoading && (
             <div class="commentable__comments">
               {this.comments.map((comment, _) => (
-                <ct-comment comment={comment} />
+                <ct-comment key={comment.id || comment.created_at} comment={comment} />
               ))}
             </div>
           )}

@@ -29,6 +29,7 @@ export namespace Components {
   }
   interface CtCompose {
     'comment': any;
+    'onSubmit': any;
   }
   interface CtLoading {}
 }
@@ -101,6 +102,7 @@ declare namespace LocalJSX {
   }
   interface CtCompose {
     'comment'?: any;
+    'onSubmit'?: any;
   }
   interface CtLoading {}
 
